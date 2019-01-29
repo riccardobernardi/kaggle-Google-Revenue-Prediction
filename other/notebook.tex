@@ -1,0 +1,849 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{kaggle-v6.0}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{conf} \PY{k}{import} \PY{o}{*}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+        \PY{o}{\PYZpc{}}\PY{k}{reload\PYZus{}ext} autoreload
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}95}]:} \PY{c+c1}{\PYZsh{}eccezioni, non da droppare}
+         \PY{n}{target} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}num cols}
+         \PY{n}{nums} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{visitStartTime}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{}cat cols}
+         \PY{n}{cats} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{trafficSource.adwordsClickInfo.gclId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{trafficSource.referralPath}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{trafficSource.adContent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n}{parameters} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{c+c1}{\PYZsh{}numero massimo di valori in una singola colonna per essere flattata, altrimenti drop}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max\PYZus{}new\PYZus{}feat}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{50}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}inviare a kaggle tramite l\PYZsq{} API}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{commit}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+m+mi}{0}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}lgbm tuning parameters}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}leaves}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feature\PYZus{}fraction}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mf}{0.7}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bagging\PYZus{}fraction}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{learn\PYZus{}rate}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mf}{0.004}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}train rows}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{train\PYZus{}rows}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{100000}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}test\PYZus{}rows, per submittare deve essere settato a \PYZhy{}1}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}rows}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}il metodo principale è lgbm ma si può testare anche la regressione lineare}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{test\PYZus{}also\PYZus{}lin\PYZus{}reg}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}bagging frequency}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bagging\PYZus{}freq}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}transactionRevenue}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{transactionRevenue}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}percentuale di dev e val}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{percentage}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+m+mi}{18}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}grouping\PYZus{}mode\PYZus{}cats}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grouping\PYZus{}mode\PYZus{}cats}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mode}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}score}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{final\PYZus{}score}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+             \PY{c+c1}{\PYZsh{}minio di alberi per il rf}
+             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}child\PYZus{}samples}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n+nb}{locals}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{parameters}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{k}{if} \PY{p}{(}\PY{n}{commit}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{test\PYZus{}rows} \PY{o}{!=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+            \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{per submittare devi usare tutte le righe del test}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{o}{\PYZpc{}}\PY{k}{time} train\PYZus{}df = load\PYZus{}df(train\PYZus{}file,train\PYZus{}rows,target)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loaded train\_v2.csv. Shape: (100000, 94)
+CPU times: user 3min 2s, sys: 5.28 s, total: 3min 7s
+Wall time: 3min 8s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{o}{\PYZpc{}}\PY{k}{time} test\PYZus{}df = load\PYZus{}df(test\PYZus{}file,test\PYZus{}rows,target)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loaded test\_v2.csv. Shape: (500, 76)
+CPU times: user 2.41 s, sys: 38.1 ms, total: 2.45 s
+Wall time: 2.46 s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+            \PY{n}{test\PYZus{}df} \PY{o}{=} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{if} \PY{o+ow}{not} \PY{n}{transactionRevenue}\PY{p}{:}
+            \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.transactionRevenue}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                \PY{n}{test\PYZus{}df} \PY{o}{=} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.transactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{if} \PY{o+ow}{not} \PY{n}{transactionRevenue}\PY{p}{:}
+            \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.transactionRevenue}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                \PY{n}{train\PYZus{}df} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.transactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}controllare che nel nuovo test non droppi totalsRevenue perchè c\PYZsq{}è solo nel train}
+         \PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df} \PY{o}{=} \PY{n}{drop\PYZus{}uncommons}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df}\PY{p}{,}\PY{n}{target}\PY{p}{)}
+         
+         \PY{n}{nums} \PY{o}{=} \PY{n}{find\PYZus{}num\PYZus{}cols}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{target}\PY{p}{,}\PY{n}{cats}\PY{p}{,}\PY{n}{nums}\PY{p}{)}
+         
+         \PY{n}{cats} \PY{o}{=} \PY{n}{find\PYZus{}cat\PYZus{}cols}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{target}\PY{p}{,}\PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{cc}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df}\PY{p}{,}\PY{n}{cats}\PY{p}{,}\PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{nums}\PY{p}{:}
+             \PY{k}{if} \PY{p}{(}\PY{n}{col} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{target}\PY{p}{)} \PY{o}{|} \PY{p}{(}\PY{n}{col}\PY{o}{==}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{col}\PY{o}{!=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                     \PY{n}{test\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}df}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Impute 0 for missing target values}
+         \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{train\PYZus{}df} \PY{o}{=} \PY{n}{stringify\PYZus{}cats}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{cats}\PY{p}{)}
+         \PY{n}{test\PYZus{}df} \PY{o}{=} \PY{n}{stringify\PYZus{}cats}\PY{p}{(}\PY{n}{test\PYZus{}df}\PY{p}{,}\PY{n}{cats}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}droppo le colonne che hanno troppa varianza}
+         \PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df}\PY{p}{,}\PY{n}{cats} \PY{o}{=} \PY{n}{drop\PYZus{}exceeding}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df}\PY{p}{,}\PY{n}{max\PYZus{}new\PYZus{}feat}\PY{p}{,}\PY{n}{cats}\PY{p}{,}\PY{n}{target}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{cc}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df}\PY{p}{,}\PY{n}{cats}\PY{p}{,}\PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{n}{cats}\PY{p}{]} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{n}{cats}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+         \PY{n}{test\PYZus{}df}\PY{p}{[}\PY{n}{cats}\PY{p}{]} \PY{o}{=} \PY{n}{test\PYZus{}df}\PY{p}{[}\PY{n}{cats}\PY{p}{]}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{str}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{o}{\PYZpc{}}\PY{k}{time} train\PYZus{}df,test\PYZus{}df,cats = encode\PYZus{}cats(train\PYZus{}df,test\PYZus{}df,cats)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[***********]CPU times: user 3.59 s, sys: 697 ms, total: 4.29 s
+Wall time: 4.28 s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{cc}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df}\PY{p}{,}\PY{n}{cats}\PY{p}{,}\PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{o}{\PYZpc{}}\PY{k}{time} train\PYZus{}df = group\PYZus{}me(train\PYZus{}df,\PYZdq{}fullVisitorId\PYZdq{},cats,nums,grouping\PYZus{}mode\PYZus{}cats)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[******]CPU times: user 15min 33s, sys: 22 s, total: 15min 55s
+Wall time: 15min 41s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{o}{\PYZpc{}}\PY{k}{time} test\PYZus{}df = group\PYZus{}me(test\PYZus{}df,\PYZdq{}fullVisitorId\PYZdq{},cats,nums,grouping\PYZus{}mode\PYZus{}cats)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[******]CPU times: user 4.97 s, sys: 66.6 ms, total: 5.04 s
+Wall time: 4.98 s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{cc}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{p}{,}\PY{n}{test\PYZus{}df}\PY{p}{,}\PY{n}{cats}\PY{p}{,}\PY{n}{nums}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{train\PYZus{}id} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{test\PYZus{}id} \PY{o}{=} \PY{n}{test\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}pulizia delle colonne con nomi assurdi}
+         \PY{c+c1}{\PYZsh{}questa operazione può essere fatta in maniera safe perchè }
+         \PY{c+c1}{\PYZsh{}a questo punto i due datasets hanno le stesse colonne con gli stessi nomi}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{30}\PY{p}{]} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+         \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{col}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{30}\PY{p}{]} \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{common\PYZus{}feats} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{train\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{o}{.}\PY{n}{intersection}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{test\PYZus{}df}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{difference}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{target}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}qui viene bloccato il controllo di coerenza poichè le colonne cambiano, in particolare i nomi }
+         \PY{c+c1}{\PYZsh{}vengono accorciati ma è safe farlo perchè i nomi delle colonne sono importanti solo nel preprocessing}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}cc(train\PYZus{}df,test\PYZus{}df,cats,nums)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}train\PYZus{}df.head()}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}splitto il dataframe in development e validation ma cercando di mantenere in maniera }
+         \PY{c+c1}{\PYZsh{}corretta il rapporto dei compratori che è circa dell\PYZsq{} 1\PYZpc{}}
+         
+         \PY{c+c1}{\PYZsh{}posso fare confronti con 0 perchè prima tutte le colonne sono state messe a 0 perciò non rischio NA}
+         
+         \PY{c+c1}{\PYZsh{}divido il train in 2 parti: quelli che hanno speso che sono l\PYZsq{} 1\PYZpc{} e quelli che non hanno }
+         \PY{c+c1}{\PYZsh{}speso 99\PYZpc{} e da ognuno estraggo il tot\PYZpc{} quindi mantengo il rapporto tra i due}
+         \PY{n}{train\PYZus{}money} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{train\PYZus{}no\PYZus{}money} \PY{o}{=} \PY{n}{train\PYZus{}df}\PY{p}{[}\PY{n}{train\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{]}
+         
+         \PY{n}{percent} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}money}\PY{p}{)}\PY{o}{*}\PY{n}{percentage}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{train\PYZus{}money\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}money}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{n}{percent}\PY{p}{,}\PY{p}{]}
+         
+         \PY{n}{dev\PYZus{}df} \PY{o}{=} \PY{n}{train\PYZus{}money}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{percent}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}money}\PY{p}{)}\PY{p}{,}\PY{p}{]}
+         \PY{n}{val\PYZus{}df} \PY{o}{=} \PY{n}{train\PYZus{}money\PYZus{}val}
+         
+         \PY{n}{percent} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}no\PYZus{}money}\PY{p}{)}\PY{o}{*}\PY{n}{percentage}\PY{o}{/}\PY{l+m+mi}{100}\PY{p}{)}
+         \PY{n}{train\PYZus{}no\PYZus{}money\PYZus{}val} \PY{o}{=} \PY{n}{train\PYZus{}no\PYZus{}money}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{n}{percent}\PY{p}{,}\PY{p}{]}
+         
+         \PY{n}{dev\PYZus{}df} \PY{o}{=} \PY{n}{dev\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}no\PYZus{}money}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{percent}\PY{p}{:}\PY{n+nb}{len}\PY{p}{(}\PY{n}{train\PYZus{}no\PYZus{}money}\PY{p}{)}\PY{p}{,}\PY{p}{]}\PY{p}{)}
+         \PY{n}{val\PYZus{}df} \PY{o}{=} \PY{n}{val\PYZus{}df}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}no\PYZus{}money\PYZus{}val} \PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}voglio lavorare su un subset perciò provo a ridurre la grandezza}
+         \PY{c+c1}{\PYZsh{}mantengo il rapporto ma perdo info nelle features}
+         \PY{c+c1}{\PYZsh{}quantity=1}
+         
+         \PY{c+c1}{\PYZsh{}dev\PYZus{}df=dev\PYZus{}df.iloc[:int(len(dev\PYZus{}df)*quantity),:]}
+         \PY{c+c1}{\PYZsh{}val\PYZus{}df=val\PYZus{}df.iloc[:int(len(val\PYZus{}df)*quantity),:]}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+         
+         \PY{c+c1}{\PYZsh{}dev\PYZus{}y contiene la colonna addestramento in dev già log1p}
+         \PY{n}{dev\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{dev\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}val\PYZus{}y contiene la colonna target in val già log1p}
+         \PY{n}{val\PYZus{}y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{val\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}dev\PYZus{}x contiene colonne numeriche e cat senza transRev}
+         \PY{n}{dev\PYZus{}X} \PY{o}{=} \PY{n}{dev\PYZus{}df}\PY{p}{[} \PY{n}{common\PYZus{}feats} \PY{p}{]}
+         \PY{c+c1}{\PYZsh{}val\PYZus{}x contiene colonne numeriche e cat senza transRev}
+         \PY{n}{val\PYZus{}X} \PY{o}{=} \PY{n}{val\PYZus{}df}\PY{p}{[} \PY{n}{common\PYZus{}feats} \PY{p}{]}
+         \PY{c+c1}{\PYZsh{}test è ciò che dobbiamo trovare}
+         \PY{n}{test\PYZus{}X} \PY{o}{=} \PY{n}{test\PYZus{}df}\PY{p}{[} \PY{n}{common\PYZus{}feats} \PY{p}{]} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{k}{def} \PY{n+nf}{write}\PY{p}{(}\PY{n}{tipo}\PY{p}{)}\PY{p}{:}
+             \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{final\PYZus{}score}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final\PYZus{}score}
+             \PY{k}{try}\PY{p}{:}
+                 \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./tests.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{columns}\PY{p}{)} \PY{o}{!=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{parameters}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{il file tests.csv contiene meno colonne del necessario, verrà sostituito con perdita}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                     \PY{o}{!}rm \PY{l+s+s2}{\PYZdq{}./tests.csv\PYZdq{}}
+             \PY{k}{except}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{il file tests.csv verrà creato ora perchè non esistente}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./tests.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{a}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{ff}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{os}\PY{o}{.}\PY{n}{fstat}\PY{p}{(}\PY{n}{ff}\PY{o}{.}\PY{n}{fileno}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{st\PYZus{}size} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{parameters}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{file} \PY{o}{=} \PY{n}{ff}\PY{p}{,}\PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{file} \PY{o}{=} \PY{n}{ff}\PY{p}{)} 
+                 \PY{k}{for} \PY{n}{v} \PY{o+ow}{in} \PY{n}{parameters}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{str}\PY{p}{(}\PY{n}{v}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{file} \PY{o}{=} \PY{n}{ff}\PY{p}{,}\PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}} \PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{tipo}\PY{p}{,}\PY{n}{file} \PY{o}{=} \PY{n}{ff} \PY{p}{)} 
+\end{Verbatim}
+
+
+    \subsection{Linear Regression}\label{linear-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{k+kn}{from} \PY{n+nn}{regression} \PY{k}{import} \PY{n}{lin}
+         
+         \PY{k}{if} \PY{n}{test\PYZus{}also\PYZus{}lin\PYZus{}reg} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+             \PY{n}{pred\PYZus{}test} \PY{o}{=} \PY{n}{lin}\PY{p}{(}\PY{n}{dev\PYZus{}X}\PY{p}{,}\PY{n}{dev\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}X}\PY{p}{)}
+             \PY{n}{pred\PYZus{}val} \PY{o}{=} \PY{n}{lin}\PY{p}{(}\PY{n}{dev\PYZus{}X}\PY{p}{,}\PY{n}{dev\PYZus{}y}\PY{p}{,}\PY{n}{val\PYZus{}X}\PY{p}{)}
+         
+             \PY{n}{val\PYZus{}pred\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{val\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{\PYZcb{}}\PY{p}{)}
+             \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{val\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+             \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expm1}\PY{p}{(}\PY{n}{pred\PYZus{}val}\PY{p}{)}
+             \PY{n}{val\PYZus{}pred\PYZus{}df} \PY{o}{=} \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+             \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{10}\PY{o}{\PYZca{}}\PY{l+m+mi}{20}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{0}
+         
+             \PY{n}{final\PYZus{}score} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+                                                              \PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{final\PYZus{}score}\PY{p}{)}
+             \PY{n}{write}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{lin\PYZus{}reg}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.2767071560971872
+il file tests.csv contiene meno colonne del necessario, verrà sostituito con perdita
+
+    \end{Verbatim}
+
+    \subsection{LightGBM single-tree}\label{lightgbm-single-tree}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}96}]:} \PY{c+c1}{\PYZsh{} custom function to run light\PYZhy{}gbm model}
+         \PY{k}{def} \PY{n+nf}{lgbm}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{val\PYZus{}X}\PY{p}{,} \PY{n}{val\PYZus{}y}\PY{p}{,} \PY{n}{test\PYZus{}X}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{objective}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{metric}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{num\PYZus{}leaves}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{n\PYZus{}leaves}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feature\PYZus{}fraction}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{feature\PYZus{}fraction}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bagging\PYZus{}fraction}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{bagging\PYZus{}fraction}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bagging\PYZus{}freq}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{bagging\PYZus{}freq}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{learning\PYZus{}rate}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{learn\PYZus{}rate}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{verbosity}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+             \PY{p}{\PYZcb{}}
+             
+             \PY{n}{lgtrain} \PY{o}{=} \PY{n}{lgb}\PY{o}{.}\PY{n}{Dataset}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{train\PYZus{}y}\PY{p}{)}
+             \PY{n}{lgval} \PY{o}{=} \PY{n}{lgb}\PY{o}{.}\PY{n}{Dataset}\PY{p}{(}\PY{n}{val\PYZus{}X}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{val\PYZus{}y}\PY{p}{)}
+             \PY{n}{model} \PY{o}{=} \PY{n}{lgb}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{params}\PY{p}{,} \PY{n}{lgtrain}\PY{p}{,} \PY{l+m+mi}{10000}\PY{p}{,} \PY{n}{valid\PYZus{}sets}\PY{o}{=}\PY{p}{[}\PY{n}{lgval}\PY{p}{]}\PY{p}{,} \PY{n}{early\PYZus{}stopping\PYZus{}rounds}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,} \PY{n}{verbose\PYZus{}eval}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,}\PY{n}{keep\PYZus{}training\PYZus{}booster} \PY{o}{=} \PY{k+kc}{True} \PY{p}{)}
+             
+             \PY{n}{pred\PYZus{}test\PYZus{}y} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}X}\PY{p}{,} \PY{n}{num\PYZus{}iteration}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{best\PYZus{}iteration}\PY{p}{)}
+             \PY{n}{pred\PYZus{}val\PYZus{}y} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{val\PYZus{}X}\PY{p}{,} \PY{n}{num\PYZus{}iteration}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{best\PYZus{}iteration}\PY{p}{)}
+             \PY{k}{return} \PY{n}{pred\PYZus{}test\PYZus{}y}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{pred\PYZus{}val\PYZus{}y}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}97}]:} \PY{o}{\PYZpc{}}\PY{k}{time} pred\PYZus{}test, model, pred\PYZus{}val = lgbm(dev\PYZus{}X, dev\PYZus{}y, val\PYZus{}X, val\PYZus{}y, test\PYZus{}X)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Training until validation scores don't improve for 300 rounds.
+[300]	valid\_0's rmse: 1.55009
+[600]	valid\_0's rmse: 1.5103
+[900]	valid\_0's rmse: 1.50811
+Early stopping, best iteration is:
+[762]	valid\_0's rmse: 1.5065
+CPU times: user 50.3 s, sys: 1.7 s, total: 52 s
+Wall time: 14.6 s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}98}]:} \PY{n}{pred\PYZus{}val}\PY{p}{[}\PY{n}{pred\PYZus{}val}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{val\PYZus{}pred\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{val\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{val\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expm1}\PY{p}{(}\PY{n}{pred\PYZus{}val}\PY{p}{)}
+         \PY{n}{val\PYZus{}pred\PYZus{}df} \PY{o}{=} \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{final\PYZus{}score} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{final\PYZus{}score}\PY{p}{)}
+         
+         \PY{n}{sub\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{test\PYZus{}id}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{pred\PYZus{}test}\PY{p}{[}\PY{n}{pred\PYZus{}test}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{sub\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expm1}\PY{p}{(}\PY{n}{pred\PYZus{}test}\PY{p}{)}
+         \PY{n}{sub\PYZus{}df} \PY{o}{=} \PY{n}{sub\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sub\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{sub\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{sub\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sub\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{path\PYZus{}or\PYZus{}buf}\PY{o}{=}\PY{n}{my\PYZus{}submission\PYZus{}file}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.506410485423894
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}99}]:} \PY{o}{!}wc \PYZhy{}l \PY{o}{\PYZob{}}my\PYZus{}submission\PYZus{}file\PY{o}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+     488 /Users/rr/Desktop/UniVe/PRIMO\_SEMESTRE/WEB\_INTELLIGENCE\_anno\_2018\_2019/datasets/gstore/mysub.csv
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}100}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{)}\PY{p}{)}
+          \PY{n}{lgb}\PY{o}{.}\PY{n}{plot\PYZus{}importance}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{max\PYZus{}num\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LightGBM \PYZhy{} Feature Importance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}101}]:} \PY{k}{if} \PY{n}{commit}\PY{p}{:}
+              \PY{o}{!}kaggle competitions submit \PYZhy{}c ga\PYZhy{}customer\PYZhy{}revenue\PYZhy{}prediction \PYZhy{}f \PY{o}{\PYZob{}}my\PYZus{}submission\PYZus{}file\PY{o}{\PYZcb{}} \PYZhy{}m \PY{l+s+s2}{\PYZdq{}No Message\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}102}]:} \PY{n}{write}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LightGBM}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}   
+\end{Verbatim}
+
+
+    \subsection{LightGBM con rf}\label{lightgbm-con-rf}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}86}]:} \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{n\PYZus{}leaves}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{8192}
+         \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bagging\PYZus{}fraction}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.25}
+         \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feature\PYZus{}fraction}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.4}
+         \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bagging\PYZus{}freq}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{parameters}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}child\PYZus{}samples}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n+nb}{locals}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{n}{parameters}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}87}]:} \PY{c+c1}{\PYZsh{} custom function to run light\PYZhy{}gbm model}
+         \PY{k}{def} \PY{n+nf}{lgbm\PYZus{}rf}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{val\PYZus{}X}\PY{p}{,} \PY{n}{val\PYZus{}y}\PY{p}{,} \PY{n}{test\PYZus{}X}\PY{p}{)}\PY{p}{:}
+             
+             \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{objective}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{regression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{metric}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rmse}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{num\PYZus{}leaves}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{n\PYZus{}leaves}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{learning\PYZus{}rate}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{learn\PYZus{}rate}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bagging\PYZus{}fraction}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{bag\PYZus{}frac}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feature\PYZus{}fraction}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{feature\PYZus{}frac}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{bagging\PYZus{}freq}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{bag\PYZus{}freq}\PY{p}{,}
+                 \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}depth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min\PYZus{}child\PYZus{}samples}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{n}{min\PYZus{}child\PYZus{}samples}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{boosting}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rf}\PY{l+s+s2}{\PYZdq{}}
+             \PY{p}{\PYZcb{}}
+             
+             \PY{n}{lgtrain} \PY{o}{=} \PY{n}{lgb}\PY{o}{.}\PY{n}{Dataset}\PY{p}{(}\PY{n}{train\PYZus{}X}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{train\PYZus{}y}\PY{p}{)}
+             \PY{n}{lgval} \PY{o}{=} \PY{n}{lgb}\PY{o}{.}\PY{n}{Dataset}\PY{p}{(}\PY{n}{val\PYZus{}X}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{val\PYZus{}y}\PY{p}{)}
+             \PY{n}{model} \PY{o}{=} \PY{n}{lgb}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{params}\PY{p}{,} \PY{n}{lgtrain}\PY{p}{,} \PY{l+m+mi}{3000}\PY{p}{,} \PY{n}{valid\PYZus{}sets}\PY{o}{=}\PY{p}{[}\PY{n}{lgval}\PY{p}{]}\PY{p}{,} \PY{n}{verbose\PYZus{}eval}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{,}\PY{n}{keep\PYZus{}training\PYZus{}booster} \PY{o}{=} \PY{k+kc}{True} \PY{p}{)}
+             
+             \PY{n}{pred\PYZus{}test\PYZus{}y} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}X}\PY{p}{,} \PY{n}{num\PYZus{}iteration}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{best\PYZus{}iteration}\PY{p}{)}
+             \PY{n}{pred\PYZus{}val\PYZus{}y} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{val\PYZus{}X}\PY{p}{,} \PY{n}{num\PYZus{}iteration}\PY{o}{=}\PY{n}{model}\PY{o}{.}\PY{n}{best\PYZus{}iteration}\PY{p}{)}
+             \PY{k}{return} \PY{n}{pred\PYZus{}test\PYZus{}y}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{pred\PYZus{}val\PYZus{}y}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}88}]:} \PY{o}{\PYZpc{}}\PY{k}{time} pred\PYZus{}test, model, pred\PYZus{}val = lgbm\PYZus{}rf(dev\PYZus{}X, dev\PYZus{}y, val\PYZus{}X, val\PYZus{}y, test\PYZus{}X)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[500]	valid\_0's rmse: 1.53759
+[1000]	valid\_0's rmse: 1.53618
+[1500]	valid\_0's rmse: 1.53596
+[2000]	valid\_0's rmse: 1.53603
+[2500]	valid\_0's rmse: 1.53609
+[3000]	valid\_0's rmse: 1.53636
+CPU times: user 5min 12s, sys: 9.63 s, total: 5min 21s
+Wall time: 1min 28s
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}89}]:} \PY{n}{pred\PYZus{}val}\PY{p}{[}\PY{n}{pred\PYZus{}val}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{val\PYZus{}pred\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{val\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{val\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+         \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expm1}\PY{p}{(}\PY{n}{pred\PYZus{}val}\PY{p}{)}
+         \PY{n}{val\PYZus{}pred\PYZus{}df} \PY{o}{=} \PY{n}{val\PYZus{}pred\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{final\PYZus{}score} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{totals.totalTransactionRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{val\PYZus{}pred\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{final\PYZus{}score}\PY{p}{)}
+         
+         \PY{n}{sub\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{test\PYZus{}id}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{pred\PYZus{}test}\PY{p}{[}\PY{n}{pred\PYZus{}test}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{sub\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{expm1}\PY{p}{(}\PY{n}{pred\PYZus{}test}\PY{p}{)}
+         \PY{n}{sub\PYZus{}df} \PY{o}{=} \PY{n}{sub\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{sub\PYZus{}df}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{fullVisitorId}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{n}{sub\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log1p}\PY{p}{(}\PY{n}{sub\PYZus{}df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PredictedLogRevenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sub\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{n}{path\PYZus{}or\PYZus{}buf}\PY{o}{=}\PY{n}{my\PYZus{}submission\PYZus{}file}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{mode}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{w}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1.536359587077712
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}90}]:} \PY{o}{!}wc \PYZhy{}l \PY{o}{\PYZob{}}my\PYZus{}submission\PYZus{}file\PY{o}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+     488 /Users/rr/Desktop/UniVe/PRIMO\_SEMESTRE/WEB\_INTELLIGENCE\_anno\_2018\_2019/datasets/gstore/mysub.csv
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}91}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{18}\PY{p}{)}\PY{p}{)}
+         \PY{n}{lgb}\PY{o}{.}\PY{n}{plot\PYZus{}importance}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{max\PYZus{}num\PYZus{}features}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{l+m+mf}{0.8}\PY{p}{,} \PY{n}{ax}\PY{o}{=}\PY{n}{ax}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{k+kc}{False}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LightGBM \PYZhy{} Feature Importance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}92}]:} \PY{k}{if} \PY{n}{commit}\PY{p}{:}
+             \PY{o}{!}kaggle competitions submit \PYZhy{}c ga\PYZhy{}customer\PYZhy{}revenue\PYZhy{}prediction \PYZhy{}f \PY{o}{\PYZob{}}my\PYZus{}submission\PYZus{}file\PY{o}{\PYZcb{}} \PYZhy{}m \PY{l+s+s2}{\PYZdq{}No Message\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}93}]:} \PY{n}{write}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LightGBM\PYZus{}rf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}94}]:} \PY{c+ch}{\PYZsh{}!rm \PYZdq{}./tests.csv\PYZdq{}}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
